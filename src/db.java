@@ -1,8 +1,9 @@
 import java.sql.*;
+import java.util.Scanner;
 
 public class db {
     private String query;
-    private String dbUrl = "jdbc:mysql://localhost:3306/test";
+    private String dbUrl = "jdbc:mysql://localhost:3306/users";
     private String username = "root";
     private String password = "1234";
 
@@ -47,11 +48,14 @@ public class db {
     }
 
     public void insertUsers() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Insert name");
+            String name = scanner.nextLine();
+        System.out.println("Insert password");
+            String pass = scanner.nextLine();
+        System.out.println();
 
-
-        for (int i = 0; i < 10; i++) {
-
-            String query = "INSERT INTO user (nameuser, passuser) VALUES ('Casper', 1234) ";
+            String query = "INSERT INTO users (user_name, user_pass) VALUES ('" + name + "', '" + pass + "'); ";
 
             try (Connection connection = DriverManager.getConnection(dbUrl, username, password);
                  Statement statement = connection.createStatement()) {
@@ -61,8 +65,5 @@ public class db {
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
-            i++;
-        }
-
     }
 }
